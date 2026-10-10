@@ -6,13 +6,9 @@ interface AddNewLineProps {
 }
 
 export function AddNewLine({ textContent, setTextContent }: AddNewLineProps) {
-  function addLine() {
-    const sentences = textContent.split(".");
-    const newLines = sentences
-      .map((senetence: string): string => senetence + ".\n")
-      .join("");
-    setTextContent(newLines);
-  }
+  const addLine = () => {
+    setTextContent(textContent.split(/(?<=[.?!])/g).join("\n"));
+  };
 
   return (
     <Button onClick={addLine} disabled={textContent === ""}>

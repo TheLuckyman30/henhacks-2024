@@ -6,11 +6,16 @@ interface RemoveLineProps {
 }
 
 export function RemoveLine({ textContent, setTextContent }: RemoveLineProps) {
-  function removeLine() {
-    const sentences = textContent.split(".\n");
-    const newLines = sentences.join(".");
-    setTextContent(newLines);
-  }
+  const removeLine = () => {
+    const lines = textContent.split(/(?<=[.?!])/g);
+    const newLines: string[] = [];
+    for (const line of lines) {
+      const newLine = line.replace("\n", "");
+      newLines.push(newLine);
+    }
+
+    setTextContent(newLines.join(""));
+  };
 
   return (
     <Button onClick={removeLine} disabled={textContent === ""}>
