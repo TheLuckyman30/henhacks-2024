@@ -1,11 +1,10 @@
-import { type DragEvent, useState } from "react";
+import { type DragEvent, type RefObject, useState } from "react";
 import { useUserStore } from "@utils/user-store";
 import "@css/FileDragger.css";
 
-export function FileDragger() {
+export function FileDragger({ ref }: { ref: RefObject<Map<number, string>> }) {
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const setTextContent = useUserStore((s) => s.setTextContent);
-  console.log("test");
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -21,6 +20,7 @@ export function FileDragger() {
           replaceLineBreaksRegEx,
           " ",
         );
+        ref.current = new Map<number, string>();
         setTextContent(extractedText);
       }
     };
