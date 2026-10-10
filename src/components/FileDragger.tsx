@@ -1,10 +1,11 @@
 import { type DragEvent, useState } from "react";
-import { useUserContext } from "@utils/user-context";
+import { useUserStore } from "@utils/user-store";
 import "@css/FileDragger.css";
 
 export function FileDragger() {
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
-  const { setTextContent } = useUserContext();
+  const setTextContent = useUserStore((s) => s.setTextContent);
+  console.log("test");
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();

@@ -1,8 +1,9 @@
-import { useUserContext } from "@utils/user-context";
+import { useUserStore } from "@utils/user-store";
 import { Button } from "./Button";
 
 export function AddNewLine() {
-  const { textContent, setTextContent } = useUserContext();
+  const textContent = useUserStore((s) => s.textContent);
+  const setTextContent = useUserStore((s) => s.setTextContent);
 
   const addLine = () => {
     setTextContent(textContent.split(/(?<=[.?!])/g).join("\n"));

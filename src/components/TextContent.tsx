@@ -1,8 +1,9 @@
-import { useUserContext } from "@utils/user-context";
+import { useUserStore } from "@utils/user-store";
 import "@css/TextContent.css";
 
 export function TextContent() {
-  const { textContent, letterSpacing } = useUserContext();
+  const textContent = useUserStore((s) => s.textContent);
+  const letterSpacing = useUserStore((s) => s.letterSpacing);
 
   return (
     <div className="text-content" style={{ letterSpacing }}>

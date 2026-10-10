@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
+import { useUserStore } from "@utils/user-store";
 import { Button } from "./Button";
-import { useUserContext } from "@utils/user-context";
 
 interface ChangeCasingProps {
   letterToChange: "first" | "last";
@@ -13,7 +13,8 @@ const letterMatchRegex: Record<string, RegExp> = {
 
 export function ChangeCasing({ letterToChange }: ChangeCasingProps) {
   const [isChanged, setIsChanged] = useState<boolean>(false);
-  const { textContent, setTextContent } = useUserContext();
+  const textContent = useUserStore((s) => s.textContent);
+  const setTextContent = useUserStore((s) => s.setTextContent);
 
   const originalLetters = useRef(new Map<number, string>()); // This is to maintain charcters that were originally uppercase
 

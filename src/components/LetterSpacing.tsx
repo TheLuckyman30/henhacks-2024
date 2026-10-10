@@ -1,8 +1,8 @@
 import "@css/LetterSpacing.css";
-import { useUserContext } from "@utils/user-context";
+import { useUserStore } from "@utils/user-store";
 
 export function LetterSpacing() {
-  const { setLetterSpacing } = useUserContext();
+  const setLetterSpacing = useUserStore((s) => s.setLetterSpacing);
 
   return (
     <div>
