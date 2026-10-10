@@ -1,4 +1,4 @@
-import { DragEvent, useState } from "react";
+import { type DragEvent, useState } from "react";
 import "../css/FileDragger.css";
 
 export interface FileDraggerProps {

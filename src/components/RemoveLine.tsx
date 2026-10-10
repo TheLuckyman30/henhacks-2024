@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button } from "./Button";
 
 interface RemoveLineProps {
   textContent: string;

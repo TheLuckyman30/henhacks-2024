@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button } from "./Button";
 
 interface ChangeCasingProps {
   textContent: string;
