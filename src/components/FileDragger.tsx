@@ -1,34 +1,33 @@
-import { DragEvent} from "react"; 
+import { DragEvent } from "react";
 
 export interface DropFilesProps {
   isDragOver: boolean;
-  setIsDragOver: (newIsDragOver: boolean) => void;
-  file: File[];
-  setFile: (newFile: File[]) => void;
-  words: string;
-  setWords: (newWords: string) => void;
+  setIsDragOver: (isDragOver: boolean) => void;
+  setTextContnet: (newText: string) => void;
 }
 
-export function DropFile(props: DropFilesProps) {
-
+export function DropFile({
+  isDragOver,
+  setIsDragOver,
+  setTextContnet,
+}: DropFilesProps) {
   function handleDragOver(event: DragEvent<HTMLDivElement>): void {
     event.preventDefault();
-    props.setIsDragOver(true);
+    setIsDragOver(true);
   }
 
   function handleDragLeave(event: DragEvent<HTMLDivElement>): void {
     event.preventDefault();
-    props.setIsDragOver(false);
+    setIsDragOver(false);
   }
 
   function handleDrop(event: DragEvent<HTMLDivElement>): void {
     event.preventDefault();
-    props.setIsDragOver(false);
+    setIsDragOver(false);
 
     const userFiles = Array.from(event.dataTransfer.files);
-    props.setFile(userFiles);
 
-    let accumWords: string = "";
+    let extractedText: string = "";
 
     userFiles.forEach((file: File) => {
       const reader = new FileReader();
@@ -36,8 +35,8 @@ export function DropFile(props: DropFilesProps) {
       reader.onloadend = () => {
         if (typeof reader.result === "string") {
           const removedLineBreaks = reader.result.replace(/[\r\n]+/gm, " ");
-          accumWords += removedLineBreaks.split(".").join(".\n");
-          props.setWords(accumWords);
+          extractedText += removedLineBreaks.split(".").join(".\n");
+          setTextContnet(extractedText);
         }
       };
 
@@ -64,7 +63,7 @@ export function DropFile(props: DropFilesProps) {
           height: "50px",
           width: "300px",
           border: "1px dotted",
-          backgroundColor: props.isDragOver ? "lightgray" : "white",
+          backgroundColor: isDragOver ? "lightgray" : "white",
           color: "black",
         }}
       >

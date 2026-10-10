@@ -1,16 +1,22 @@
 import { Button } from "react-bootstrap";
-import { DropFilesProps } from "./FileDragger";
 
-//very interesting  
+interface AddNewLineProps {
+  textContent: string;
+  setTextContent: (newText: string) => void;
+}
 
-export function AddNewLine (props: DropFilesProps) {
+export function AddNewLine({ textContent, setTextContent }: AddNewLineProps) {
+  function addLine() {
+    const sentences = textContent.split(".");
+    const newLines = sentences
+      .map((senetence: string): string => senetence + ".\n")
+      .join("");
+    setTextContent(newLines);
+  }
 
-    function addLine () {
-        const sentences = props.words.split(".");
-        const newLines = sentences.map((senetence: string): string => senetence + ".\n").join("");
-        props.setWords(newLines);
-        
-    }
-
-    return <Button onClick={addLine} disabled={props.words === ""}>Add a new Line</Button>
+  return (
+    <Button onClick={addLine} disabled={textContent === ""}>
+      Add a new Line
+    </Button>
+  );
 }

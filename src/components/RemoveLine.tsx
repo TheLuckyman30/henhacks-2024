@@ -1,14 +1,20 @@
 import { Button } from "react-bootstrap";
-import { DropFilesProps } from "./FileDragger";
 
-export function RemoveLine (props: DropFilesProps) {
+interface RemoveLineProps {
+  textContent: string;
+  setTextContent: (newText: string) => void;
+}
 
-    function removeLine () {
-        const sentences = props.words.split(".\n");
-        const newLines = sentences.join(".");
-        props.setWords(newLines);
-        
-    }
+export function RemoveLine({ textContent, setTextContent }: RemoveLineProps) {
+  function removeLine() {
+    const sentences = textContent.split(".\n");
+    const newLines = sentences.join(".");
+    setTextContent(newLines);
+  }
 
-    return <Button onClick={removeLine} disabled={props.words === ""}>Remove a Line</Button>
+  return (
+    <Button onClick={removeLine} disabled={textContent === ""}>
+      Remove a Line
+    </Button>
+  );
 }

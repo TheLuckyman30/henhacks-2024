@@ -1,64 +1,49 @@
-import React, { useState } from "react";
-import "./App.css";
+import { useState } from "react";
 import { DropFile } from "./components/FileDragger";
 import { MakeUppercase } from "./components/MakeUppercase";
 import { MakeLastUpper } from "./components/MakeLastUpper";
 import { LetterSpacing } from "./components/LetterSpacing";
 import { AddNewLine } from "./components/AddNewLine";
 import { RemoveLine } from "./components/RemoveLine";
-
-
+import "./App.css";
 
 function App() {
   const [isDragOver, setisDragOver] = useState<boolean>(false);
-  const [file, setFile] = useState<File[]>([]);
-  const [words, setWords] = useState<string>("");
+  const [textContent, setTextContent] = useState<string>("");
 
   return (
     <div>
-      <div className="App-header" style={{ justifyContent: "flex-start", fontFamily: "Arial"}}>
+      <div
+        className="App-header"
+        style={{ justifyContent: "flex-start", fontFamily: "Arial" }}
+      >
         <MakeUppercase
-          isDragOver={isDragOver}
-          setIsDragOver={setisDragOver}
-          file={file}
-          setFile={setFile}
-          words={words}
-          setWords={setWords}
-        ></MakeUppercase>
+          textContent={textContent}
+          setTextContent={setTextContent}
+        />
         <MakeLastUpper
-          isDragOver={isDragOver}
-          setIsDragOver={setisDragOver}
-          file={file}
-          setFile={setFile}
-          words={words}
-          setWords={setWords}
-        ></MakeLastUpper>
-        <LetterSpacing></LetterSpacing>
-        <AddNewLine
-          isDragOver={isDragOver}
-          setIsDragOver={setisDragOver}
-          file={file}
-          setFile={setFile}
-          words={words}
-          setWords={setWords}
-        ></AddNewLine>
-        <RemoveLine
-          isDragOver={isDragOver}
-          setIsDragOver={setisDragOver}
-          file={file}
-          setFile={setFile}
-          words={words}
-          setWords={setWords}
-        ></RemoveLine>
+          textContent={textContent}
+          setTextContent={setTextContent}
+        />
+        <LetterSpacing />
+        <AddNewLine textContent={textContent} setTextContent={setTextContent} />
+        <RemoveLine textContent={textContent} setTextContent={setTextContent} />
         <DropFile
           isDragOver={isDragOver}
           setIsDragOver={setisDragOver}
-          file={file}
-          setFile={setFile}
-          words={words}
-          setWords={setWords}
-        ></DropFile>
-        <p style={{display: "flex", whiteSpace: "pre-line", fontSize: "20px", textAlign: "left"}} id="changeText11">{words}</p>
+          setTextContnet={setTextContent}
+        />
+        <p
+          style={{
+            display: "flex",
+            whiteSpace: "pre-line",
+            fontSize: "20px",
+            textAlign: "left",
+          }}
+          id="changeText11"
+        >
+          {textContent}
+        </p>
       </div>
     </div>
   );
