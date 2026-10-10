@@ -1,5 +1,5 @@
 import { type DragEvent, useState } from "react";
-import "../css/FileDragger.css";
+import "@css/FileDragger.css";
 
 export interface FileDraggerProps {
   setTextContnet: (newText: string) => void;

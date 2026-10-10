@@ -5,8 +5,8 @@ import {
   RemoveLine,
   FileDragger,
   ChangeCasing,
-} from "./components";
-import "./css/App.css";
+} from "@components";
+import "@css/App.css";
 
 function App() {
   const [textContent, setTextContent] = useState<string>("");

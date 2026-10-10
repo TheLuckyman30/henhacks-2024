@@ -1,4 +1,4 @@
-import "../css/LetterSpacing.css";
+import "@css/LetterSpacing.css";
 
 interface LetterSpacingProps {
   setLetterSpacing: (newSpacing: number) => void;

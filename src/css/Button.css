@@ -10,8 +10,10 @@
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   font-size: 1rem;
   line-height: 1.5rem;
+  padding: 0.5rem;
 }
 
 .button:hover {
   transform: scale(1.05);
+  cursor: pointer;
 }
