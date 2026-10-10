@@ -1,16 +1,12 @@
-import { DragEvent } from "react";
+import { DragEvent, useState } from "react";
 
-export interface DropFilesProps {
-  isDragOver: boolean;
-  setIsDragOver: (isDragOver: boolean) => void;
+export interface FileDraggerProps {
   setTextContnet: (newText: string) => void;
 }
 
-export function DropFile({
-  isDragOver,
-  setIsDragOver,
-  setTextContnet,
-}: DropFilesProps) {
+export function FileDragger({ setTextContnet }: FileDraggerProps) {
+  const [isDragOver, setIsDragOver] = useState<boolean>(false);
+
   function handleDragOver(event: DragEvent<HTMLDivElement>): void {
     event.preventDefault();
     setIsDragOver(true);

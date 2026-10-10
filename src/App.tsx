@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { DropFile } from "./components/FileDragger";
-import { MakeUppercase } from "./components/MakeUppercase";
-import { MakeLastUpper } from "./components/MakeLastUpper";
-import { LetterSpacing } from "./components/LetterSpacing";
-import { AddNewLine } from "./components/AddNewLine";
-import { RemoveLine } from "./components/RemoveLine";
+import {
+  LetterSpacing,
+  AddNewLine,
+  RemoveLine,
+  FileDragger,
+  ChangeCasing,
+} from "./components";
 import "./App.css";
 
 function App() {
-  const [isDragOver, setisDragOver] = useState<boolean>(false);
   const [textContent, setTextContent] = useState<string>("");
 
   return (
@@ -17,22 +17,20 @@ function App() {
         className="App-header"
         style={{ justifyContent: "flex-start", fontFamily: "Arial" }}
       >
-        <MakeUppercase
+        <ChangeCasing
           textContent={textContent}
+          letterToChange="first"
           setTextContent={setTextContent}
         />
-        <MakeLastUpper
+        <ChangeCasing
           textContent={textContent}
+          letterToChange="last"
           setTextContent={setTextContent}
         />
         <LetterSpacing />
         <AddNewLine textContent={textContent} setTextContent={setTextContent} />
         <RemoveLine textContent={textContent} setTextContent={setTextContent} />
-        <DropFile
-          isDragOver={isDragOver}
-          setIsDragOver={setisDragOver}
-          setTextContnet={setTextContent}
-        />
+        <FileDragger setTextContnet={setTextContent} />
         <p
           style={{
             display: "flex",
