@@ -8,49 +8,42 @@ export interface FileDraggerProps {
 export function FileDragger({ setTextContnet }: FileDraggerProps) {
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
-  function handleDragOver(event: DragEvent<HTMLDivElement>): void {
-    event.preventDefault();
-    setIsDragOver(true);
-  }
-
-  function handleDragLeave(event: DragEvent<HTMLDivElement>): void {
-    event.preventDefault();
-    setIsDragOver(false);
-  }
-
-  function handleDrop(event: DragEvent<HTMLDivElement>): void {
-    event.preventDefault();
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
     setIsDragOver(false);
 
-    const userFiles = Array.from(event.dataTransfer.files);
+    const file = Array.from(e.dataTransfer.files)[0];
+    const reader = new FileReader();
 
-    let extractedText: string = "";
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") {
+        const replaceLineBreaksRegEx = /[\r\n]+/gm;
+        const extractedText = reader.result.replace(
+          replaceLineBreaksRegEx,
+          " ",
+        );
+        setTextContnet(extractedText);
+      }
+    };
 
-    userFiles.forEach((file: File) => {
-      const reader = new FileReader();
+    reader.onerror = () => {
+      console.error("There was an issue reading the file!");
+    };
 
-      reader.onloadend = () => {
-        if (typeof reader.result === "string") {
-          const removedLineBreaks = reader.result.replace(/[\r\n]+/gm, " ");
-          extractedText += removedLineBreaks.split(".").join(".\n");
-          setTextContnet(extractedText);
-        }
-      };
-
-      reader.onerror = () => {
-        console.error("There was an issue.");
-      };
-
-      reader.readAsText(file);
-      return reader;
-    });
-  }
+    reader.readAsText(file);
+  };
 
   return (
     <div>
       <div
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDragOver(true);
+        }}
+        onDragLeave={(e) => {
+          e.preventDefault();
+          setIsDragOver(false);
+        }}
         onDrop={handleDrop}
         className="file-box"
         style={{

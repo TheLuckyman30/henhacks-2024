@@ -13,28 +13,23 @@ function App() {
   const [letterSpacing, setLetterSpacing] = useState<number>(0);
 
   return (
-    <div>
-      <div
-        className="main-header"
-        style={{ justifyContent: "flex-start", fontFamily: "Arial" }}
-      >
-        <ChangeCasing
-          textContent={textContent}
-          letterToChange="first"
-          setTextContent={setTextContent}
-        />
-        <ChangeCasing
-          textContent={textContent}
-          letterToChange="last"
-          setTextContent={setTextContent}
-        />
-        <LetterSpacing setLetterSpacing={setLetterSpacing} />
-        <AddNewLine textContent={textContent} setTextContent={setTextContent} />
-        <RemoveLine textContent={textContent} setTextContent={setTextContent} />
-        <FileDragger setTextContnet={setTextContent} />
-        <div className="main-text" style={{ letterSpacing }}>
-          {textContent}
-        </div>
+    <div className="main">
+      <ChangeCasing
+        textContent={textContent}
+        letterToChange="first"
+        setTextContent={setTextContent}
+      />
+      <ChangeCasing
+        textContent={textContent}
+        letterToChange="last"
+        setTextContent={setTextContent}
+      />
+      <LetterSpacing setLetterSpacing={setLetterSpacing} />
+      <AddNewLine textContent={textContent} setTextContent={setTextContent} />
+      <RemoveLine textContent={textContent} setTextContent={setTextContent} />
+      <FileDragger setTextContnet={setTextContent} />
+      <div className="main-text" style={{ letterSpacing }}>
+        {textContent}
       </div>
     </div>
   );
