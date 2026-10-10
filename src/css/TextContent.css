@@ -1,0 +1,6 @@
+.text-content {
+  display: flex;
+  white-space: pre-line;
+  font-size: 20px;
+  text-align: left;
+}

@@ -1,71 +1,52 @@
-import { DragEvent} from "react"; 
+import { type DragEvent, type RefObject, useState } from "react";
+import { useUserStore } from "@utils/user-store";
+import "@css/FileDragger.css";
 
-export interface DropFilesProps {
-  isDragOver: boolean;
-  setIsDragOver: (newIsDragOver: boolean) => void;
-  file: File[];
-  setFile: (newFile: File[]) => void;
-  words: string;
-  setWords: (newWords: string) => void;
-}
+export function FileDragger({ ref }: { ref: RefObject<Map<number, string>> }) {
+  const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const setTextContent = useUserStore((s) => s.setTextContent);
 
-export function DropFile(props: DropFilesProps) {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(false);
 
-  function handleDragOver(event: DragEvent<HTMLDivElement>): void {
-    event.preventDefault();
-    props.setIsDragOver(true);
-  }
+    const file = Array.from(e.dataTransfer.files)[0];
+    const reader = new FileReader();
 
-  function handleDragLeave(event: DragEvent<HTMLDivElement>): void {
-    event.preventDefault();
-    props.setIsDragOver(false);
-  }
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") {
+        const replaceLineBreaksRegEx = /[\r\n]+/gm;
+        const extractedText = reader.result.replace(
+          replaceLineBreaksRegEx,
+          " ",
+        );
+        ref.current = new Map<number, string>();
+        setTextContent(extractedText);
+      }
+    };
 
-  function handleDrop(event: DragEvent<HTMLDivElement>): void {
-    event.preventDefault();
-    props.setIsDragOver(false);
+    reader.onerror = () => {
+      console.error("There was an issue reading the file!");
+    };
 
-    const userFiles = Array.from(event.dataTransfer.files);
-    props.setFile(userFiles);
-
-    let accumWords: string = "";
-
-    userFiles.forEach((file: File) => {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        if (typeof reader.result === "string") {
-          const removedLineBreaks = reader.result.replace(/[\r\n]+/gm, " ");
-          accumWords += removedLineBreaks.split(".").join(".\n");
-          props.setWords(accumWords);
-        }
-      };
-
-      reader.onerror = () => {
-        console.error("There was an issue.");
-      };
-
-      reader.readAsText(file);
-      return reader;
-    });
-  }
+    reader.readAsText(file);
+  };
 
   return (
     <div>
       <div
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDragOver(true);
+        }}
+        onDragLeave={(e) => {
+          e.preventDefault();
+          setIsDragOver(false);
+        }}
         onDrop={handleDrop}
+        className="file-box"
         style={{
-          margin: "auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "50px",
-          width: "300px",
-          border: "1px dotted",
-          backgroundColor: props.isDragOver ? "lightgray" : "white",
-          color: "black",
+          backgroundColor: isDragOver ? "lightgray" : "white",
         }}
       >
         Drag files

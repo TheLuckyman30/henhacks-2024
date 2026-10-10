@@ -1,16 +1,17 @@
-import { Button } from "react-bootstrap";
-import { DropFilesProps } from "./FileDragger";
+import { useUserStore } from "@utils/user-store";
+import { Button } from "./Button";
 
-//very interesting  
+export function AddNewLine() {
+  const textContent = useUserStore((s) => s.textContent);
+  const setTextContent = useUserStore((s) => s.setTextContent);
 
-export function AddNewLine (props: DropFilesProps) {
+  const addLine = () => {
+    setTextContent(textContent.split(/(?<=[.?!])/g).join("\n"));
+  };
 
-    function addLine () {
-        const sentences = props.words.split(".");
-        const newLines = sentences.map((senetence: string): string => senetence + ".\n").join("");
-        props.setWords(newLines);
-        
-    }
-
-    return <Button onClick={addLine} disabled={props.words === ""}>Add a new Line</Button>
+  return (
+    <Button onClick={addLine} disabled={textContent === ""}>
+      Add a new Line
+    </Button>
+  );
 }

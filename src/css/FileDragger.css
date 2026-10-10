@@ -1,0 +1,10 @@
+.file-box {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 300px;
+  border: 1px dotted;
+  color: black;
+}
