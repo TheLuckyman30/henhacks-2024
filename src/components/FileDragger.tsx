@@ -1,4 +1,5 @@
 import { DragEvent, useState } from "react";
+import "../css/FileDragger.css";
 
 export interface FileDraggerProps {
   setTextContnet: (newText: string) => void;
@@ -51,16 +52,9 @@ export function FileDragger({ setTextContnet }: FileDraggerProps) {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        className="file-box"
         style={{
-          margin: "auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "50px",
-          width: "300px",
-          border: "1px dotted",
           backgroundColor: isDragOver ? "lightgray" : "white",
-          color: "black",
         }}
       >
         Drag files

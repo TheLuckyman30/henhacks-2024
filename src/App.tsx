@@ -6,15 +6,16 @@ import {
   FileDragger,
   ChangeCasing,
 } from "./components";
-import "./App.css";
+import "./css/App.css";
 
 function App() {
   const [textContent, setTextContent] = useState<string>("");
+  const [letterSpacing, setLetterSpacing] = useState<number>(0);
 
   return (
     <div>
       <div
-        className="App-header"
+        className="main-header"
         style={{ justifyContent: "flex-start", fontFamily: "Arial" }}
       >
         <ChangeCasing
@@ -27,21 +28,13 @@ function App() {
           letterToChange="last"
           setTextContent={setTextContent}
         />
-        <LetterSpacing />
+        <LetterSpacing setLetterSpacing={setLetterSpacing} />
         <AddNewLine textContent={textContent} setTextContent={setTextContent} />
         <RemoveLine textContent={textContent} setTextContent={setTextContent} />
         <FileDragger setTextContnet={setTextContent} />
-        <p
-          style={{
-            display: "flex",
-            whiteSpace: "pre-line",
-            fontSize: "20px",
-            textAlign: "left",
-          }}
-          id="changeText11"
-        >
+        <div className="main-text" style={{ letterSpacing }}>
           {textContent}
-        </p>
+        </div>
       </div>
     </div>
   );
