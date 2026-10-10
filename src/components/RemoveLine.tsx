@@ -1,11 +1,9 @@
+import { useUserContext } from "@utils/user-context";
 import { Button } from "./Button";
 
-interface RemoveLineProps {
-  textContent: string;
-  setTextContent: (newText: string) => void;
-}
+export function RemoveLine() {
+  const { textContent, setTextContent } = useUserContext();
 
-export function RemoveLine({ textContent, setTextContent }: RemoveLineProps) {
   const removeLine = () => {
     const lines = textContent.split(/(?<=[.?!])/g);
     const newLines: string[] = [];

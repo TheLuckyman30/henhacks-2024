@@ -1,12 +1,10 @@
 import { type DragEvent, useState } from "react";
+import { useUserContext } from "@utils/user-context";
 import "@css/FileDragger.css";
 
-export interface FileDraggerProps {
-  setTextContnet: (newText: string) => void;
-}
-
-export function FileDragger({ setTextContnet }: FileDraggerProps) {
+export function FileDragger() {
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const { setTextContent } = useUserContext();
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -22,7 +20,7 @@ export function FileDragger({ setTextContnet }: FileDraggerProps) {
           replaceLineBreaksRegEx,
           " ",
         );
-        setTextContnet(extractedText);
+        setTextContent(extractedText);
       }
     };
 

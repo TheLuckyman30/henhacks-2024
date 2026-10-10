@@ -12,6 +12,7 @@ export default defineConfig({
         import.meta.dirname,
         "./src/components/index.ts",
       ),
+      "@utils": path.resolve(import.meta.dirname, "./src/utils"),
     },
   },
   base: "/henhacks-2024/",

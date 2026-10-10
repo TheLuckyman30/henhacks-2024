@@ -1,10 +1,9 @@
 import "@css/LetterSpacing.css";
+import { useUserContext } from "@utils/user-context";
 
-interface LetterSpacingProps {
-  setLetterSpacing: (newSpacing: number) => void;
-}
+export function LetterSpacing() {
+  const { setLetterSpacing } = useUserContext();
 
-export function LetterSpacing({ setLetterSpacing }: LetterSpacingProps) {
   return (
     <div>
       <label htmlFor="letter-spacing" className="input-label">
